@@ -19,4 +19,17 @@ public class Guest extends BaseEntity{
         this.age=age;
         this.gender=gender;
     }
+
+    @Override
+    public String toString() {
+        return String.format("\nGuest:" +
+                        "\r\n\tname: %s" +
+                        "\r\n\tsurName: %s" +
+                        "\r\n\ttel: %s" +
+                        "\r\n\tage: %d" +
+                        "\r\n\tprice: %d" +
+                        "\r\n\tgender: %s",
+                name(),surName,tel,age,gender);
+    }
+
 }

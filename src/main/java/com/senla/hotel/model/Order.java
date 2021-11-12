@@ -16,4 +16,15 @@ public class Order extends BaseEntity{
         this.guestList=guestList;
         this.roomList=roomList;
     }
+
+    @Override
+    public String toString() {
+        return String.format("\nOrder:" +
+                        "\r\n\tdateSettlement: %s" +
+                        "\r\n\tdateFree: %s" +
+                        "\r\n\tguestList: %s" +
+                        "\r\n\troomList: %s" ,
+                dateSettlement(),dateFree,guestList,roomList);
+    }
+
 }

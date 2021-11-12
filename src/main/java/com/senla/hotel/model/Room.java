@@ -16,4 +16,15 @@ public class Room extends BaseEntity{
         this.price=price;
         this.status=status;
     }
+
+    @Override
+    public String toString() {
+        return String.format("\nRoom:" +
+                        "\r\n\tnumber: %s" +
+                        "\r\n\tcapacity: %d" +
+                        "\r\n\tstatus: %s" +
+                        "\r\n\tprice: %d",
+                number(),capacity,status,price);
+    }
+
 }
