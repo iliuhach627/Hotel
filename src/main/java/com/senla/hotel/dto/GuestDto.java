@@ -1,9 +1,12 @@
-package com.senla.hotel.model;
+package com.senla.hotel.dto;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
-public class Guest extends BaseEntity{
+public class GuestDto {
+    private UUID id;
     private String name;
     private String surName;
     private String tel;

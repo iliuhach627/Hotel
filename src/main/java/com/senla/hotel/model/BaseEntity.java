@@ -6,13 +6,14 @@ import org.springframework.data.relational.core.mapping.Column;
 
 import javax.annotation.Generated;
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Data
 public abstract class BaseEntity {
     @Id
     @Column(value = "id")
-    private Long id;
+    private UUID id;
 
     @Override
     public boolean equals(Object o) {

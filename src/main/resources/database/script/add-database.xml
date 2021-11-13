@@ -1,13 +1,14 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www/.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
    <changeSet id="13-11-2021-12-45-31" author="Jeka">
-       <createTable tableName="Guest">
-           <column name="name" type="varchar(100)">
+       <createTable tableName="guest">
+           <column name="id" type="UUID" >
                <constraints nullable="false" />
            </column>
 
-           <column name="id" type="bigint" >
+           <column name="name" type="varchar(100)">
                <constraints nullable="false" />
            </column>
 
@@ -15,7 +16,7 @@
                <constraints nullable="false" />
            </column>
 
-           <column name="tel" type="string" >
+           <column name="tel" type="varchar(100)" >
                <constraints nullable="false" />
            </column>
 
@@ -23,11 +24,83 @@
                <constraints nullable="false" />
            </column>
 
-           <column name="gender" type="varchar" >
+           <column name="gender" type="varchar(100)" >
                <constraints nullable="false" />
            </column>
 
        </createTable>
        <addPrimaryKey tableName="guest" columnNames="id" constraintName="pkguestid"/>
    </changeSet>
+
+    <changeSet id="13-11-2021-14-16-53" author="Jeka">
+        <createTable tableName="room">
+            <column name="id" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="number" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="capacity" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="status" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="price" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="room" columnNames="id" constraintName="pkroomid"/>
+    </changeSet>
+
+    <changeSet id="13-11-2021-14-20-17" author="Jeka">
+        <createTable tableName="facility">
+            <column name="id" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+            <column name="title" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="price" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="facility" columnNames="id" constraintName="pkfacilityid"/>
+    </changeSet>
+
+    <changeSet id="13-11-2021-14-21-54" author="Jeka">
+        <createTable tableName="order">
+            <column name="id" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="dataset" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="datafree" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="status" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="sttus" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="price" type="bigint" >
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="order" columnNames="id" constraintName="pkorderid"/>
+    </changeSet>
 </databaseChangeLog>
