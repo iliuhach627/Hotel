@@ -1,24 +1,15 @@
 package com.senla.hotel.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Getter
-@Setter
+@Table
+@Data
 public class Facility extends BaseEntity {
     private String title;
     private int price;
-    private Facility(String title,int price){
-        this.title=title;
-        this.price=price;
-    }
 
-    @Override
-    public String toString() {
-        return String.format("\nFacility:" +
-                        "\r\n\ttitle: %s" +
-                        "\r\n\tprice: %d",
-                title,price);
-    }
 
 }

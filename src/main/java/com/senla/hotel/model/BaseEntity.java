@@ -1,13 +1,17 @@
 package com.senla.hotel.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
+import javax.annotation.Generated;
 import java.util.Objects;
 
-@Getter
-@Setter
+
+@Data
 public abstract class BaseEntity {
+    @Id
+    @Column(value = "id")
     private Long id;
 
     @Override
