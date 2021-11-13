@@ -7,5 +7,4 @@ import lombok.Setter;
 @Setter
 public class Test extends BaseEntity{
     private String name;
-
 }
