@@ -1,30 +1,21 @@
 package com.senla.hotel.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-@Getter
-@Setter
+@Table(value = "room")
+@Data
 public class Room extends BaseEntity{
+    @Column(value = "number")
     private String number;
+    @Column(value = "capacity")
     private int capacity;
+    @Column(value = "status")
     private Status status;
+    @Column(value = "price")
     private int price;
-    private Room(String number,int capacity,int price,Status status){
-        this.number=number;
-        this.capacity=capacity;
-        this.price=price;
-        this.status=status;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("\nRoom:" +
-                        "\r\n\tnumber: %s" +
-                        "\r\n\tcapacity: %d" +
-                        "\r\n\tstatus: %s" +
-                        "\r\n\tprice: %d",
-                number(),capacity,status,price);
-    }
 
 }
