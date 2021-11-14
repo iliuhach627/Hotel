@@ -1,0 +1,11 @@
+     o o o o o o o
+    o             o
+   o  ___________  o
+  o     X     X     o
+ o                   o
+o         YYY         o
+ o         Y         o
+  o                 o
+   o   000000000   o
+    o             o
+     o o o o o o o

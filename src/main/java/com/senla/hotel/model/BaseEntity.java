@@ -1,14 +1,17 @@
 package com.senla.hotel.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
+import javax.annotation.Generated;
 import java.util.Objects;
+import java.util.UUID;
 
-@Getter
-@Setter
+
+@Data
 public abstract class BaseEntity {
-    private Long id;
+    private UUID id;
 
     @Override
     public boolean equals(Object o) {
