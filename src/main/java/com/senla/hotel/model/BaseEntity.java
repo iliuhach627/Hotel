@@ -11,8 +11,6 @@ import java.util.UUID;
 
 @Data
 public abstract class BaseEntity {
-    @Id
-    @Column(value = "id")
     private UUID id;
 
     @Override
