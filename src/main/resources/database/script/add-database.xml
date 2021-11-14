@@ -32,35 +32,10 @@
        <addPrimaryKey tableName="guest" columnNames="id" constraintName="pkguestid"/>
    </changeSet>
 
-    <changeSet id="13-11-2021-14-16-53" author="Jeka">
-        <createTable tableName="room">
-            <column name="id" type="bigint" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="number" type="varchar(100)" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="capacity" type="bigint" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="status" type="varchar(100)" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="price" type="bigint" >
-                <constraints nullable="false" />
-            </column>
-
-        </createTable>
-        <addPrimaryKey tableName="room" columnNames="id" constraintName="pkroomid"/>
-    </changeSet>
-
     <changeSet id="13-11-2021-14-20-17" author="Jeka">
+
         <createTable tableName="facility">
-            <column name="id" type="bigint" >
+            <column name="id" type="UUID" >
                 <constraints nullable="false" />
             </column>
             <column name="title" type="varchar(100)" >
@@ -74,25 +49,18 @@
         <addPrimaryKey tableName="facility" columnNames="id" constraintName="pkfacilityid"/>
     </changeSet>
 
-    <changeSet id="13-11-2021-14-21-54" author="Jeka">
-        <createTable tableName="order">
-            <column name="id" type="bigint" >
+    <changeSet id="13-11-2021-14-16-53" author="Jeka">
+
+        <createTable tableName="room">
+            <column name="id" type="UUID" >
                 <constraints nullable="false" />
             </column>
 
-            <column name="dataset" type="bigint" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="datafree" type="bigint" >
+            <column name="number" type="varchar(100)" >
                 <constraints nullable="false" />
             </column>
 
             <column name="status" type="varchar(100)" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="sttus" type="varchar(100)" >
                 <constraints nullable="false" />
             </column>
 
@@ -101,6 +69,39 @@
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="order" columnNames="id" constraintName="pkorderid"/>
+        <addPrimaryKey tableName="room" columnNames="id" constraintName="pkroomid"/>
+
     </changeSet>
+
+    <changeSet id="13-11-2021-14-21-54" author="Jeka">
+        <createTable tableName="order">
+            <column name="id" type="UUID" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="dataset" type="date" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="datafree" type="date" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="guestid" type="UUID" >
+                <constraints nullable="false" />
+            </column>
+
+            <column name="roomid" type="UUID" >
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="order" columnNames="id" constraintName="pkorderid"/>
+
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="guestid" constraintName="pkorderguestsid" referencedTableName="guest"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="roomid" constraintName="pkorderroomsid" referencedTableName="room"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>

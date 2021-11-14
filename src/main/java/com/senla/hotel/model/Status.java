@@ -1,6 +1,7 @@
 package com.senla.hotel.model;
 
 public enum Status {
-BUSY,
-FREE
+    BUSY,
+    FREE,
+    REPAIRED
 }
