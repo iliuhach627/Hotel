@@ -17,32 +17,27 @@ public class GuestController {
     private final GuestService guestService;
 
     @PostMapping
-    public ResponseEntity<GuestDto> create(@RequestBody GuestDto guestDto)
-    {
+    public ResponseEntity<GuestDto> create(@RequestBody GuestDto guestDto) {
         return ResponseEntity.ok(guestService.create(guestDto));
     }
 
     @GetMapping
-    public ResponseEntity<Collection<GuestDto>> findAll()
-    {
+    public ResponseEntity<Collection<GuestDto>> findAll() {
         return ResponseEntity.ok(guestService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GuestDto> findById(@PathVariable UUID id)
-    {
+    public ResponseEntity<GuestDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(guestService.findById(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable UUID id)
-    {
+    public void deleteById(@PathVariable UUID id) {
         guestService.delete(id);
     }
 
     @PatchMapping
-    public ResponseEntity<GuestDto> update(@RequestBody GuestDto guestDto)
-    {
+    public ResponseEntity<GuestDto> update(@RequestBody GuestDto guestDto) {
         return ResponseEntity.ok(guestService.update(guestDto));
     }
 }
