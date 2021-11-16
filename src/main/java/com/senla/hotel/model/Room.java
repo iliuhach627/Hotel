@@ -8,5 +8,4 @@ public class Room extends BaseEntity{
     private String number;
     private Status status;
     private int price;
-
 }
