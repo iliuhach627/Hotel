@@ -1,4 +1,4 @@
-package com.senla.hotel.model;
+package com.senla.hotel.model.enums;
 
 public enum Status {
     BUSY,
