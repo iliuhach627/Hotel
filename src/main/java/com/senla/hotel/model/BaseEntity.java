@@ -1,10 +1,7 @@
 package com.senla.hotel.model;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Column;
 
-import javax.annotation.Generated;
 import java.util.Objects;
 import java.util.UUID;
 

@@ -1,6 +1,7 @@
 package com.senla.hotel.api.service;
 
 import com.senla.hotel.dto.GuestDto;
+
 import java.util.Collection;
 import java.util.UUID;
 
