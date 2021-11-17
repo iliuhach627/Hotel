@@ -95,12 +95,18 @@
                 <constraints nullable="false" />
             </column>
 
+            <column name="facilitiesid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
         </createTable>
         <addPrimaryKey tableName="order" columnNames="id" constraintName="pkorderid"/>
 
         <addForeignKeyConstraint baseTableName="order" baseColumnNames="guestid" constraintName="pkorderguestsid" referencedTableName="guest"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="order" baseColumnNames="roomid" constraintName="pkorderroomsid" referencedTableName="room"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="order" baseColumnNames="facilitiesid" constraintName="pkorderfacilitiesid" referencedTableName="facility"
                                  referencedColumnNames="id"/>
     </changeSet>
 

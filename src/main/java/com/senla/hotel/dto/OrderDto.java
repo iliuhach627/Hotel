@@ -1,16 +1,16 @@
-package com.senla.hotel.model;
+package com.senla.hotel.dto;
 
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.UUID;
 
 @Data
-public class Order extends BaseEntity{
+public class OrderDto {
+    private UUID id;
     private LocalDate dateSettlement;
     private LocalDate dateFree;
-    private UUID roomId;
     private UUID guestId;
+    private UUID roomId;
     private UUID facilityId;
 }

@@ -59,8 +59,7 @@ public class RoomDaoImpl implements RoomDao {
         if (room.getStatus().equals(Status.FREE)) {
             room.setStatus(Status.REPAIRED);
             jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
-        }
-        else if (room.getStatus().equals(Status.REPAIRED)){
+        } else if (room.getStatus().equals(Status.REPAIRED)) {
             room.setStatus(Status.FREE);
             jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
         }
