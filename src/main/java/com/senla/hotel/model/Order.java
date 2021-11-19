@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Order extends BaseEntity{
     private LocalDate dateSettlement;
     private LocalDate dateFree;
-    private UUID roomId;
-    private UUID guestId;
-    private UUID facilityId;
+    private Guest guest;
+    private Room room;
+    private Facility facility;
 }

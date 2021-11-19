@@ -10,7 +10,7 @@ public class OrderDto {
     private UUID id;
     private LocalDate dateSettlement;
     private LocalDate dateFree;
-    private UUID guestId;
-    private UUID roomId;
-    private UUID facilityId;
+    private GuestDto guest;
+    private RoomDto room;
+    private FacilityDto facility;
 }

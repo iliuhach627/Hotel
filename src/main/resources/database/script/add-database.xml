@@ -4,7 +4,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
    <changeSet id="13-11-2021-12-45-31" author="Jeka">
        <createTable tableName="guest">
-           <column name="id" type="UUID" >
+           <column name="guestid" type="UUID" >
                <constraints nullable="false" />
            </column>
 
@@ -29,30 +29,30 @@
            </column>
 
        </createTable>
-       <addPrimaryKey tableName="guest" columnNames="id" constraintName="pkguestid"/>
+       <addPrimaryKey tableName="guest" columnNames="guestid" constraintName="pkguestguestid"/>
    </changeSet>
 
     <changeSet id="13-11-2021-14-20-17" author="Jeka">
 
         <createTable tableName="facility">
-            <column name="id" type="UUID" >
+            <column name="facilityid" type="UUID" >
                 <constraints nullable="false" />
             </column>
             <column name="title" type="varchar(100)" >
                 <constraints nullable="false" />
             </column>
-            <column name="price" type="bigint" >
+            <column name="facilityprice" type="bigint" >
                 <constraints nullable="false" />
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="facility" columnNames="id" constraintName="pkfacilityid"/>
+        <addPrimaryKey tableName="facility" columnNames="facilityid" constraintName="pkfacilityfacilityid"/>
     </changeSet>
 
     <changeSet id="13-11-2021-14-16-53" author="Jeka">
 
         <createTable tableName="room">
-            <column name="id" type="UUID" >
+            <column name="roomid" type="UUID" >
                 <constraints nullable="false" />
             </column>
 
@@ -64,18 +64,18 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="price" type="bigint" >
+            <column name="roomprice" type="bigint" >
                 <constraints nullable="false" />
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="room" columnNames="id" constraintName="pkroomid"/>
+        <addPrimaryKey tableName="room" columnNames="roomid" constraintName="pkroomroomid"/>
 
     </changeSet>
 
     <changeSet id="13-11-2021-14-21-54" author="Jeka">
         <createTable tableName="order">
-            <column name="id" type="UUID" >
+            <column name="orderid" type="UUID" >
                 <constraints nullable="false" />
             </column>
 
@@ -100,14 +100,14 @@
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="order" columnNames="id" constraintName="pkorderid"/>
+        <addPrimaryKey tableName="order" columnNames="orderid" constraintName="pkorderorderid"/>
 
         <addForeignKeyConstraint baseTableName="order" baseColumnNames="guestid" constraintName="pkorderguestsid" referencedTableName="guest"
-                                 referencedColumnNames="id"/>
+                                 referencedColumnNames="guestid"/>
         <addForeignKeyConstraint baseTableName="order" baseColumnNames="roomid" constraintName="pkorderroomsid" referencedTableName="room"
-                                 referencedColumnNames="id"/>
+                                 referencedColumnNames="roomid"/>
         <addForeignKeyConstraint baseTableName="order" baseColumnNames="facilitiesid" constraintName="pkorderfacilitiesid" referencedTableName="facility"
-                                 referencedColumnNames="id"/>
+                                 referencedColumnNames="facilityid"/>
     </changeSet>
 
 </databaseChangeLog>

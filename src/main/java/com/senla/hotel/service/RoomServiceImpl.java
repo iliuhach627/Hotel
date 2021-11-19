@@ -52,6 +52,5 @@ public class RoomServiceImpl implements RoomService {
     public void changeStatus(UUID id) {
         Room entity = modelMapper.map(roomDao.findById(id), Room.class);
         modelMapper.map(roomDao.changeStatus(entity), RoomDto.class);
-
     }
 }

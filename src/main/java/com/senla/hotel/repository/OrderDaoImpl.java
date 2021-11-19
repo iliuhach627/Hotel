@@ -2,7 +2,6 @@ package com.senla.hotel.repository;
 
 import com.senla.hotel.api.repository.OrderDao;
 import com.senla.hotel.mapper.row.OrderRowMapper;
-import com.senla.hotel.mapper.row.RoomRowMapper;
 import com.senla.hotel.model.Order;
 import com.senla.hotel.model.enums.Status;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,48 +16,57 @@ import java.util.UUID;
 public class OrderDaoImpl implements OrderDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private static final String createSQL = "insert into order (id, dataset, datafree, guestid, roomid, facilitiesid) values (?, ?, ?, ?, ?, ?)";
-    private static final String findAllSQL = "select * from order";
-    private static final String findByIdSQL = "select * from order where id = ?";
-    private static final String deleteSQL = "delete from order where id = ?";
-    private static final String updateSQL = "update order set dataset = ?, datafree = ? where id = ?";
+    private  final OrderRowMapper orderRowMapper;
+    private static final String innerPart = " inner join guest g on ord.guestid = g.guestid" +
+            " inner join room r on ord.roomid = r.roomid" +
+            " inner join facility f on ord.facilitiesid = f.facilityid";
+    private static final String createSQL = "insert into \"order\" (orderid, dataset, datafree, guestid, roomid, facilitiesid) values (?, ?, ?, ?, ?, ?)";
+    private static final String findAllSQL = "select * from \"order\" ord" +
+            innerPart;
+    private static final String findByIdSQL = "select * from \"order\" ord" +
+            innerPart + " where ord.orderid = ?";
+    private static final String deleteSQL = "delete from \"order\" where orderid = ?";
+    private static final String updateSQL = "update \"order\" set dataset = ?, datafree = ? where orderid = ?";
 
-    public OrderDaoImpl(DataSource dataSource) {
+    public OrderDaoImpl(DataSource dataSource, OrderRowMapper orderRowMapper) {
+
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+        this.orderRowMapper = orderRowMapper;
     }
 
     @Override
     public Order save(Order order) {
-        if (Objects.isNull(order.getId())) {
             order.setId(UUID.randomUUID());
             jdbcTemplate.update(createSQL,
                     order.getId(),
                     order.getDateSettlement(),
                     order.getDateFree(),
-                    order.getGuestId(),
-                    order.getRoomId(),
-                    order.getFacilityId());
-        } else {
-            jdbcTemplate.update(updateSQL,
-                    order.getDateSettlement(),
-                    order.getDateFree(),
-                    order.getId());
-        }
+                    order.getGuest().getId(),
+                    order.getRoom().getId(),
+                    order.getFacility().getId());
         return order;
     }
 
     @Override
     public Collection<Order> findAll() {
-        return jdbcTemplate.query(findAllSQL, new OrderRowMapper());
+        return jdbcTemplate.query(findAllSQL, orderRowMapper);
     }
 
     @Override
     public Order findById(UUID id) {
-        return jdbcTemplate.queryForObject(findByIdSQL, new OrderRowMapper(), id);
+        return jdbcTemplate.queryForObject(findByIdSQL, orderRowMapper, id);
     }
 
     @Override
     public void delete(UUID id) {
         jdbcTemplate.update(deleteSQL, id);
+    }
+
+    @Override
+    public void update(Order order) {
+        jdbcTemplate.update(updateSQL,
+                order.getDateSettlement(),
+                order.getDateFree(),
+                order.getId());
     }
 }

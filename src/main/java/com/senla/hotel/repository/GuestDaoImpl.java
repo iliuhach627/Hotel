@@ -15,11 +15,11 @@ import java.util.UUID;
 public class GuestDaoImpl implements GuestDao {
 
     private final JdbcTemplate jdbcTemplate;
-    private static final String createSQL = "insert into guest (id, name, surname, tel, age, gender) values (?, ?, ?, ?, ?, ?)";
+    private static final String createSQL = "insert into guest (guestid, name, surname, tel, age, gender) values (?, ?, ?, ?, ?, ?)";
     private static final String findAllSQL = "select * from guest";
-    private static final String findByIdSQL = "select * from guest where id = ?";
-    private static final String deleteSQL = "delete from guest where id = ?";
-    private static final String updateSQL = "update guest set name = ?, surname = ?, tel = ?, age = ?, gender = ? where id = ?";
+    private static final String findByIdSQL = "select * from guest where guestid = ?";
+    private static final String deleteSQL = "delete from guest where guestid = ?";
+    private static final String updateSQL = "update guest set name = ?, surname = ?, tel = ?, age = ?, gender = ? where guestid = ?";
 
     public GuestDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -48,7 +48,5 @@ public class GuestDaoImpl implements GuestDao {
     }
 
     @Override
-    public void delete(UUID id) {
-        jdbcTemplate.update(deleteSQL, id);
-    }
+    public void delete(UUID id) { jdbcTemplate.update(deleteSQL, id); }
 }

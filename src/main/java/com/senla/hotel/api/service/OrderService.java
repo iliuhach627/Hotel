@@ -14,6 +14,6 @@ public interface OrderService {
 
     void delete(UUID id);
 
-    OrderDto update(OrderDto entity);
+    void update(OrderDto entity);
 
 }

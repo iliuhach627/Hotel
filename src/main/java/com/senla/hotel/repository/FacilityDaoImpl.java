@@ -16,11 +16,11 @@ import java.util.UUID;
 public class FacilityDaoImpl implements FacilityDao{
 
     private final JdbcTemplate jdbcTemplate;
-    private static final String createSQL = "insert into facility (id, title, price) values (?, ?, ?)";
+    private static final String createSQL = "insert into facility (facilityid, title, facilityprice) values (?, ?, ?)";
     private static final String findAllSQL = "select * from facility";
-    private static final String findByIdSQL = "select * from facility where id = ?";
-    private static final String deleteSQL = "delete from facility where id = ?";
-    private static final String updateSQL = "update facility set title = ?, price = ? where id = ?";
+    private static final String findByIdSQL = "select * from facility where facilityid = ?";
+    private static final String deleteSQL = "delete from facility where facilityid = ?";
+    private static final String updateSQL = "update facility set title = ?, facilityprice = ? where facilityid = ?";
 
     public FacilityDaoImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
