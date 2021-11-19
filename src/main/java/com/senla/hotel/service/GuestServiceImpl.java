@@ -7,6 +7,7 @@ import com.senla.hotel.model.Guest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -19,6 +20,7 @@ public class GuestServiceImpl implements GuestService {
     private final ModelMapper modelMapper;
     private final GuestDao guestDao;
 
+    @Transactional
     @Override
     public GuestDto create(GuestDto dto) {
         Guest entity = modelMapper.map(dto, Guest.class);
@@ -37,11 +39,13 @@ public class GuestServiceImpl implements GuestService {
         return modelMapper.map(guestDao.findById(id), GuestDto.class);
     }
 
+    @Transactional
     @Override
     public void delete(UUID id) {
         guestDao.delete(id);
     }
 
+    @Transactional
     @Override
     public GuestDto update(GuestDto dto) {
         Guest entity = modelMapper.map(dto, Guest.class);

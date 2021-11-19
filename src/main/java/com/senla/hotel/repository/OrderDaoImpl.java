@@ -30,6 +30,7 @@ public class OrderDaoImpl implements OrderDao {
 
     public OrderDaoImpl(DataSource dataSource, OrderRowMapper orderRowMapper) {
 
+
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.orderRowMapper = orderRowMapper;
     }
