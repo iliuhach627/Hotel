@@ -3,13 +3,11 @@ package com.senla.hotel.repository;
 import com.senla.hotel.api.repository.OrderDao;
 import com.senla.hotel.mapper.row.OrderRowMapper;
 import com.senla.hotel.model.Order;
-import com.senla.hotel.model.enums.Status;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.UUID;
 
 @Component

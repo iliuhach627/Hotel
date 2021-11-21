@@ -2,7 +2,32 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
-   <changeSet id="13-11-2021-12-45-31" author="Jeka">
+
+    <changeSet id="20-11-2021-12-41-35" author="Jeka">
+        <createTable tableName="user">
+            <column name="userid" type="UUID" >
+                <constraints nullable="false" />
+            </column>
+            <column name="username" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="userstatus" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(100)" >
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="user" columnNames="userid" constraintName="pkuseruserid"/>
+        <insert tableName="user">
+            <column name="userid" value="40dbaa42-dd9a-45a9-96c4-ddd64d4d1af2"/>
+            <column name="username" value="Ocec"/>
+            <column name="userstatus" value="[ADMIN, USER]"/>
+            <column name="password" value="$2a$10$RB6TOCRustK3KS1NdZy6EuzJW1g3mHtPfr8wZBfdD9nXEy6DJd1tm"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="13-11-2021-12-45-31" author="Jeka">
        <createTable tableName="guest">
            <column name="guestid" type="UUID" >
                <constraints nullable="false" />

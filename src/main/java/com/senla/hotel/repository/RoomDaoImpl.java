@@ -2,9 +2,8 @@ package com.senla.hotel.repository;
 
 import com.senla.hotel.api.repository.RoomDao;
 import com.senla.hotel.mapper.row.RoomRowMapper;
-import com.senla.hotel.model.Order;
 import com.senla.hotel.model.Room;
-import com.senla.hotel.model.enums.Status;
+import com.senla.hotel.model.enums.RoomStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -31,10 +30,10 @@ public class RoomDaoImpl implements RoomDao {
     public Room save(Room room) {
         if (Objects.isNull(room.getId())) {
             room.setId(UUID.randomUUID());
-            room.setStatus(Status.FREE);
-            jdbcTemplate.update(createSQL, room.getId(), room.getNumber(), room.getStatus().toString(), room.getPrice());
+            room.setRoomStatus(RoomStatus.FREE);
+            jdbcTemplate.update(createSQL, room.getId(), room.getNumber(), room.getRoomStatus().toString(), room.getPrice());
         } else {
-            jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
+            jdbcTemplate.update(updateSQL, room.getNumber(), room.getRoomStatus().toString(), room.getPrice(), room.getId());
         }
         return room;
     }
@@ -57,24 +56,24 @@ public class RoomDaoImpl implements RoomDao {
 
     @Override
     public Room changeStatus(Room room) {
-        if (room.getStatus().equals(Status.FREE)) {
-            room.setStatus(Status.REPAIRED);
-            jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
-        } else if (room.getStatus().equals(Status.REPAIRED)) {
-            room.setStatus(Status.FREE);
-            jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
+        if (room.getRoomStatus().equals(RoomStatus.FREE)) {
+            room.setRoomStatus(RoomStatus.REPAIRED);
+            jdbcTemplate.update(updateSQL, room.getNumber(), room.getRoomStatus().toString(), room.getPrice(), room.getId());
+        } else if (room.getRoomStatus().equals(RoomStatus.REPAIRED)) {
+            room.setRoomStatus(RoomStatus.FREE);
+            jdbcTemplate.update(updateSQL, room.getNumber(), room.getRoomStatus().toString(), room.getPrice(), room.getId());
         }
         return room;
     }
 
     @Override
     public Room autoChangeStatus(Room room) {
-        if (room.getStatus().equals(Status.FREE)) {
-            room.setStatus(Status.BUSY);
-            jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
-        } else if (room.getStatus().equals(Status.BUSY)) {
-            room.setStatus(Status.FREE);
-            jdbcTemplate.update(updateSQL, room.getNumber(), room.getStatus().toString(), room.getPrice(), room.getId());
+        if (room.getRoomStatus().equals(RoomStatus.FREE)) {
+            room.setRoomStatus(RoomStatus.BUSY);
+            jdbcTemplate.update(updateSQL, room.getNumber(), room.getRoomStatus().toString(), room.getPrice(), room.getId());
+        } else if (room.getRoomStatus().equals(RoomStatus.BUSY)) {
+            room.setRoomStatus(RoomStatus.FREE);
+            jdbcTemplate.update(updateSQL, room.getNumber(), room.getRoomStatus().toString(), room.getPrice(), room.getId());
         }
         return room;
     }
