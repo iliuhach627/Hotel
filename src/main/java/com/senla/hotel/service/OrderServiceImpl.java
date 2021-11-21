@@ -25,17 +25,17 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao;
     private final FacilityDao facilityDao;
     private final GuestDao guestDao;
-
+    
     @Transactional
     @Override
     public OrderDto create(OrderDto dto) {
         Order orderEntity = modelMapper.map(dto, Order.class);
-        orderEntity.setGuest(guestDao.findById(orderEntity.getGuest().getId()));
-        orderEntity.setFacility(facilityDao.findById(orderEntity.getFacility().getId()));
-        orderEntity.setRoom(roomDao.findById(orderEntity.getRoom().getId()));
+//        orderEntity.setGuest(guestDao.findById(orderEntity.getGuest().getId()));
+//        orderEntity.setFacility(facilityDao.findById(orderEntity.getFacility().getId()));
+//        orderEntity.setRoom(roomDao.findById(orderEntity.getRoom().getId()));
 
-        Room roomEntity = roomDao.findById(orderEntity.getRoom().getId());
-        roomDao.autoChangeStatus(roomEntity);
+//        Room roomEntity = roomDao.findById(orderEntity.getRoom().getId());
+//        roomDao.autoChangeStatus(roomEntity);
         return modelMapper.map(orderDao.save(orderEntity), OrderDto.class);
     }
 

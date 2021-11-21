@@ -2,11 +2,11 @@ package com.senla.hotel.model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.UUID;
 
 @Data
+@Entity
 public class Order extends BaseEntity{
     private LocalDate dateSettlement;
     private LocalDate dateFree;

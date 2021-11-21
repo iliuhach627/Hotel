@@ -3,24 +3,30 @@ package com.senla.hotel.repository;
 import com.senla.hotel.api.repository.OrderDao;
 import com.senla.hotel.mapper.row.OrderRowMapper;
 import com.senla.hotel.model.Order;
-import com.senla.hotel.model.enums.Status;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.UUID;
+
 
 @Component
 public class OrderDaoImpl implements OrderDao {
 
+//    @PersistenceContext
+//    private EntityManager entityManager;
     private final JdbcTemplate jdbcTemplate;
-    private  final OrderRowMapper orderRowMapper;
-    private static final String innerPart = " inner join guest g on ord.guestid = g.guestid" +
+    private final OrderRowMapper orderRowMapper;
+    private static final String innerPart =
+            " inner join guest g on ord.guestid = g.guestid" +
             " inner join room r on ord.roomid = r.roomid" +
             " inner join facility f on ord.facilitiesid = f.facilityid";
-    private static final String createSQL = "insert into \"order\" (orderid, dataset, datafree, guestid, roomid, facilitiesid) values (?, ?, ?, ?, ?, ?)";
+    private static final String createSQL =
+            "insert into \"order\" (orderid, dataset, datafree, guestid, roomid, facilitiesid)" +
+            " values (?, ?, ?, ?, ?, ?)";
     private static final String findAllSQL = "select * from \"order\" ord" +
             innerPart;
     private static final String findByIdSQL = "select * from \"order\" ord" +
@@ -30,21 +36,22 @@ public class OrderDaoImpl implements OrderDao {
 
     public OrderDaoImpl(DataSource dataSource, OrderRowMapper orderRowMapper) {
 
-
         this.jdbcTemplate = new JdbcTemplate(dataSource);
         this.orderRowMapper = orderRowMapper;
     }
 
     @Override
     public Order save(Order order) {
-            order.setId(UUID.randomUUID());
-            jdbcTemplate.update(createSQL,
-                    order.getId(),
-                    order.getDateSettlement(),
-                    order.getDateFree(),
-                    order.getGuest().getId(),
-                    order.getRoom().getId(),
-                    order.getFacility().getId());
+//        entityManager.persist(order);
+//        return order;
+        order.setId(UUID.randomUUID());
+        jdbcTemplate.update(createSQL,
+                order.getId(),
+                order.getDateSettlement(),
+                order.getDateFree(),
+                order.getGuest().getId(),
+                order.getRoom().getId(),
+                order.getFacility().getId());
         return order;
     }
 
