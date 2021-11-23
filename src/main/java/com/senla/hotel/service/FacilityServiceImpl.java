@@ -3,6 +3,7 @@ package com.senla.hotel.service;
 import com.senla.hotel.api.repository.FacilityDao;
 import com.senla.hotel.api.service.FacilityService;
 import com.senla.hotel.dto.FacilityDto;
+import com.senla.hotel.mapper.FacilityMapper;
 import com.senla.hotel.model.Facility;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -17,26 +18,27 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FacilityServiceImpl implements FacilityService {
 
-    private final ModelMapper modelMapper;
     private final FacilityDao facilityDao;
+    private final FacilityMapper mapper;
 
     @Transactional
     @Override
     public FacilityDto create(FacilityDto dto) {
-        Facility entity = modelMapper.map(dto, Facility.class);
-        return modelMapper.map(facilityDao.save(entity), FacilityDto.class);
+        Facility entity = mapper.toEntity(dto);
+        return mapper.toDto(facilityDao.save(entity));
     }
 
     @Override
     public Collection<FacilityDto> findAll() {
-        return facilityDao.findAll().stream()
-                .map(facility -> modelMapper.map(facility, FacilityDto.class))
+        return facilityDao.findAll()
+                .stream()
+                .map(mapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public FacilityDto findById(UUID id) {
-        return modelMapper.map(facilityDao.findById(id), FacilityDto.class);
+        return mapper.toDto(facilityDao.findById(id));
     }
 
     @Transactional
@@ -48,7 +50,7 @@ public class FacilityServiceImpl implements FacilityService {
     @Transactional
     @Override
     public FacilityDto update(FacilityDto dto) {
-        Facility entity = modelMapper.map(dto, Facility.class);
-        return modelMapper.map(facilityDao.save(entity), FacilityDto.class);
+        Facility entity = mapper.toEntity(dto);
+        return mapper.toDto(facilityDao.save(entity));
     }
 }

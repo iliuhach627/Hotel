@@ -1,7 +1,7 @@
 package com.senla.hotel.mapper.row;
 
 import com.senla.hotel.model.Room;
-import com.senla.hotel.model.enums.Status;
+import com.senla.hotel.model.enums.RoomStatus;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class RoomRowMapper implements RowMapper<Room> {
 
         room.setId(rs.getObject("roomid", UUID.class));
         room.setNumber(rs.getString("number"));
-        room.setStatus(Status.valueOf(rs.getString("status")));
+        room.setRoomStatus(RoomStatus.valueOf(rs.getString("status")));
         room.setPrice(rs.getInt("roomprice"));
         return room;
     }
