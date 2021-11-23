@@ -2,4 +2,3 @@ spring:
   liquibase:
     change-log: classpath*:database/master.xml
     enabled: true
-

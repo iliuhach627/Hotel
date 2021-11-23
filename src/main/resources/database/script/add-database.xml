@@ -4,135 +4,158 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="20-11-2021-12-41-35" author="Jeka">
-        <createTable tableName="user">
-            <column name="userid" type="UUID" >
-                <constraints nullable="false" />
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
             </column>
-            <column name="username" type="varchar(100)" >
-                <constraints nullable="false" />
+            <column name="username" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
-            <column name="userstatus" type="varchar(100)" >
-                <constraints nullable="false" />
+            <column name="status" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
-            <column name="password" type="varchar(100)" >
-                <constraints nullable="false" />
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="user" columnNames="userid" constraintName="pkuseruserid"/>
-        <insert tableName="user">
-            <column name="userid" value="40dbaa42-dd9a-45a9-96c4-ddd64d4d1af2"/>
+        <addPrimaryKey tableName="users" columnNames="id" constraintName="pkuserid"/>
+        <insert tableName="users">
+            <column name="id" value="40dbaa42-dd9a-45a9-96c4-ddd64d4d1af2"/>
             <column name="username" value="Ocec"/>
-            <column name="userstatus" value="[ADMIN, USER]"/>
+            <column name="status" value="[ADMIN, USER]"/>
             <column name="password" value="$2a$10$RB6TOCRustK3KS1NdZy6EuzJW1g3mHtPfr8wZBfdD9nXEy6DJd1tm"/>
         </insert>
     </changeSet>
 
     <changeSet id="13-11-2021-12-45-31" author="Jeka">
-       <createTable tableName="guest">
-           <column name="guestid" type="UUID" >
-               <constraints nullable="false" />
-           </column>
-
-           <column name="name" type="varchar(100)">
-               <constraints nullable="false" />
-           </column>
-
-           <column name="surname" type="varchar(100)" >
-               <constraints nullable="false" />
-           </column>
-
-           <column name="tel" type="varchar(100)" >
-               <constraints nullable="false" />
-           </column>
-
-           <column name="age" type="bigint" >
-               <constraints nullable="false" />
-           </column>
-
-           <column name="gender" type="varchar(100)" >
-               <constraints nullable="false" />
-           </column>
-
-       </createTable>
-       <addPrimaryKey tableName="guest" columnNames="guestid" constraintName="pkguestguestid"/>
-   </changeSet>
-
-    <changeSet id="13-11-2021-14-20-17" author="Jeka">
-
-        <createTable tableName="facility">
-            <column name="facilityid" type="UUID" >
-                <constraints nullable="false" />
-            </column>
-            <column name="title" type="varchar(100)" >
-                <constraints nullable="false" />
-            </column>
-            <column name="facilityprice" type="bigint" >
-                <constraints nullable="false" />
+        <createTable tableName="guests">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
             </column>
 
-        </createTable>
-        <addPrimaryKey tableName="facility" columnNames="facilityid" constraintName="pkfacilityfacilityid"/>
-    </changeSet>
-
-    <changeSet id="13-11-2021-14-16-53" author="Jeka">
-
-        <createTable tableName="room">
-            <column name="roomid" type="UUID" >
-                <constraints nullable="false" />
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="number" type="varchar(100)" >
-                <constraints nullable="false" />
+            <column name="surname" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="status" type="varchar(100)" >
-                <constraints nullable="false" />
+            <column name="tel" type="varchar(100)">
+                <constraints nullable="false"/>
             </column>
 
-            <column name="roomprice" type="bigint" >
-                <constraints nullable="false" />
+            <column name="age" type="bigint">
+                <constraints nullable="false"/>
             </column>
 
-        </createTable>
-        <addPrimaryKey tableName="room" columnNames="roomid" constraintName="pkroomroomid"/>
-
-    </changeSet>
-
-    <changeSet id="13-11-2021-14-21-54" author="Jeka">
-        <createTable tableName="order">
-            <column name="orderid" type="UUID" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="dataset" type="date" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="datafree" type="date" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="guestid" type="UUID" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="roomid" type="UUID" >
-                <constraints nullable="false" />
-            </column>
-
-            <column name="facilitiesid" type="UUID">
+            <column name="gender" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="order" columnNames="orderid" constraintName="pkorderorderid"/>
-
-        <addForeignKeyConstraint baseTableName="order" baseColumnNames="guestid" constraintName="pkorderguestsid" referencedTableName="guest"
-                                 referencedColumnNames="guestid"/>
-        <addForeignKeyConstraint baseTableName="order" baseColumnNames="roomid" constraintName="pkorderroomsid" referencedTableName="room"
-                                 referencedColumnNames="roomid"/>
-        <addForeignKeyConstraint baseTableName="order" baseColumnNames="facilitiesid" constraintName="pkorderfacilitiesid" referencedTableName="facility"
-                                 referencedColumnNames="facilityid"/>
+        <addPrimaryKey tableName="guests" columnNames="id" constraintName="pkguestid"/>
     </changeSet>
 
+    <changeSet id="13-11-2021-14-20-17" author="Jeka">
+
+        <createTable tableName="facilities">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="facilities" columnNames="id" constraintName="pkfacilityid"/>
+    </changeSet>
+
+    <changeSet id="13-11-2021-14-16-53" author="Jeka">
+
+        <createTable tableName="rooms">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="number" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="status" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="price" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="rooms" columnNames="id" constraintName="pkroomid"/>
+
+    </changeSet>
+
+    <changeSet id="13-11-2021-14-21-54" author="Jeka">
+        <createTable tableName="orders">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="dataset" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="datafree" type="date">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="guestid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="roomid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="facilityid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addPrimaryKey tableName="orders" columnNames="id" constraintName="pkorderid"/>
+
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="guestid" constraintName="fkorderguestid"
+                                 referencedTableName="guests"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="roomid" constraintName="fkorderroomid"
+                                 referencedTableName="rooms"
+                                 referencedColumnNames="id"/>
+        <!--        <addForeignKeyConstraint baseTableName="order" baseColumnNames="facilitiesid" constraintName="fkorderfacilityid" referencedTableName="facility"-->
+        <!--                                 referencedColumnNames="facilityid"/>-->
+    </changeSet>
+
+    <changeSet id="23-11-2021-12-34-36" author="Ilya">
+        <createTable tableName="orders_facilities">
+            <column name="orderid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="facilityid" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <addPrimaryKey tableName="orders_facilities" columnNames="orderid, facilityid"
+                       constraintName="pkordersfacilitiesid"/>
+
+        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="orderid"
+                                 constraintName="fkorders_facilities_orderid" referencedTableName="orders"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="facilityid"
+                                 constraintName="fkorders_facilities_facilitiesid" referencedTableName="facilities"
+                                 referencedColumnNames="id"/>
+    </changeSet>
 </databaseChangeLog>
