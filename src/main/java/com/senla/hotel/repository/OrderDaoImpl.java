@@ -1,57 +1,49 @@
 package com.senla.hotel.repository;
 
+import com.senla.hotel.api.repository.AbstractDao;
 import com.senla.hotel.api.repository.OrderDao;
-import com.senla.hotel.mapper.row.OrderRowMapper;
 import com.senla.hotel.model.Order;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.UUID;
 
 
 @Component
-public class OrderDaoImpl implements OrderDao {
+public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
-//    @PersistenceContext
-//    private EntityManager entityManager;
+    /*@PersistenceContext
+    private EntityManager entityManager;
     private final JdbcTemplate jdbcTemplate;
     private final OrderRowMapper orderRowMapper;
     private static final String innerPart =
-            " inner join guest g on ord.guestid = g.guestid" +
-            " inner join room r on ord.roomid = r.roomid" +
-            " inner join facility f on ord.facilitiesid = f.facilityid";
+            " inner join guests g on ord.guestid = g.id" +
+            " inner join rooms r on ord.roomid = r.id" +
+            " inner join facilities f on ord.facilityid = f.id";
     private static final String createSQL =
-            "insert into \"order\" (orderid, dataset, datafree, guestid, roomid, facilitiesid)" +
+            "insert into \"orders\" (id, dataset, datafree, guestid, roomid, facilityid)" +
             " values (?, ?, ?, ?, ?, ?)";
-    private static final String findAllSQL = "select * from \"order\" ord" +
+    private static final String findAllSQL = "select * from \"orders\" ord" +
             innerPart;
-    private static final String findByIdSQL = "select * from \"order\" ord" +
-            innerPart + " where ord.orderid = ?";
-    private static final String deleteSQL = "delete from \"order\" where orderid = ?";
-    private static final String updateSQL = "update \"order\" set dataset = ?, datafree = ? where orderid = ?";
+    private static final String findByIdSQL = "select * from \"orders\" ord" +
+            innerPart + " where ord.id = ?";
+    private static final String deleteSQL = "delete from \"orders\" where id = ?";
+    private static final String updateSQL = "update \"orders\" set dataset = ?, datafree = ? where id = ?";*/
 
-    public OrderDaoImpl(DataSource dataSource, OrderRowMapper orderRowMapper) {
-
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-        this.orderRowMapper = orderRowMapper;
+    public OrderDaoImpl() {
+        super(Order.class);
+        //this.jdbcTemplate = new JdbcTemplate(dataSource);
+        //this.orderRowMapper = orderRowMapper;
     }
 
+/*
     @Override
     public Order save(Order order) {
-//        entityManager.persist(order);
-//        return order;
         order.setId(UUID.randomUUID());
         jdbcTemplate.update(createSQL,
                 order.getId(),
                 order.getDateSettlement(),
                 order.getDateFree(),
                 order.getGuest().getId(),
-                order.getRoom().getId(),
-                order.getFacility().getId());
+                order.getRoom().getId());
+                order.getFacilities().get();
         return order;
     }
 
@@ -77,4 +69,5 @@ public class OrderDaoImpl implements OrderDao {
                 order.getDateFree(),
                 order.getId());
     }
+*/
 }

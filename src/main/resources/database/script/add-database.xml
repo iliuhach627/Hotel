@@ -18,11 +18,11 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addPrimaryKey tableName="users" columnNames="id" constraintName="pkuserid"/>
+        <addPrimaryKey tableName="users" columnNames="id" constraintName="pkusersid"/>
         <insert tableName="users">
             <column name="id" value="40dbaa42-dd9a-45a9-96c4-ddd64d4d1af2"/>
             <column name="username" value="Ocec"/>
-            <column name="status" value="[ADMIN, USER]"/>
+            <column name="status" value="ADMIN"/>
             <column name="password" value="$2a$10$RB6TOCRustK3KS1NdZy6EuzJW1g3mHtPfr8wZBfdD9nXEy6DJd1tm"/>
         </insert>
     </changeSet>
@@ -45,7 +45,7 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="age" type="bigint">
+            <column name="age" type="int">
                 <constraints nullable="false"/>
             </column>
 
@@ -54,7 +54,7 @@
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="guests" columnNames="id" constraintName="pkguestid"/>
+        <addPrimaryKey tableName="guests" columnNames="id" constraintName="pkguestsid"/>
     </changeSet>
 
     <changeSet id="13-11-2021-14-20-17" author="Jeka">
@@ -66,12 +66,12 @@
             <column name="title" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="bigint">
+            <column name="price" type="int">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="facilities" columnNames="id" constraintName="pkfacilityid"/>
+        <addPrimaryKey tableName="facilities" columnNames="id" constraintName="pkfacilitiesid"/>
     </changeSet>
 
     <changeSet id="13-11-2021-14-16-53" author="Jeka">
@@ -89,12 +89,12 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="price" type="bigint">
+            <column name="price" type="int">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
-        <addPrimaryKey tableName="rooms" columnNames="id" constraintName="pkroomid"/>
+        <addPrimaryKey tableName="rooms" columnNames="id" constraintName="pkroomsid"/>
 
     </changeSet>
 
@@ -120,17 +120,13 @@
                 <constraints nullable="false"/>
             </column>
 
-            <column name="facilityid" type="UUID">
-                <constraints nullable="false"/>
-            </column>
-
         </createTable>
-        <addPrimaryKey tableName="orders" columnNames="id" constraintName="pkorderid"/>
+        <addPrimaryKey tableName="orders" columnNames="id" constraintName="pkordersid"/>
 
-        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="guestid" constraintName="fkorderguestid"
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="guestid" constraintName="fkordersguestid"
                                  referencedTableName="guests"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="roomid" constraintName="fkorderroomid"
+        <addForeignKeyConstraint baseTableName="orders" baseColumnNames="roomid" constraintName="fkordersroomid"
                                  referencedTableName="rooms"
                                  referencedColumnNames="id"/>
         <!--        <addForeignKeyConstraint baseTableName="order" baseColumnNames="facilitiesid" constraintName="fkorderfacilityid" referencedTableName="facility"-->
@@ -139,22 +135,22 @@
 
     <changeSet id="23-11-2021-12-34-36" author="Ilya">
         <createTable tableName="orders_facilities">
-            <column name="orderid" type="UUID">
+            <column name="ordersid" type="UUID">
                 <constraints nullable="false"/>
             </column>
-            <column name="facilityid" type="UUID">
+            <column name="facilitiesid" type="UUID">
                 <constraints nullable="false"/>
             </column>
 
         </createTable>
 
-        <addPrimaryKey tableName="orders_facilities" columnNames="orderid, facilityid"
+        <addPrimaryKey tableName="orders_facilities" columnNames="ordersid, facilitiesid"
                        constraintName="pkordersfacilitiesid"/>
 
-        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="orderid"
-                                 constraintName="fkorders_facilities_orderid" referencedTableName="orders"
+        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="ordersid"
+                                 constraintName="fkorders_facilities_ordersid" referencedTableName="orders"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="facilityid"
+        <addForeignKeyConstraint baseTableName="orders_facilities" baseColumnNames="facilitiesid"
                                  constraintName="fkorders_facilities_facilitiesid" referencedTableName="facilities"
                                  referencedColumnNames="id"/>
     </changeSet>

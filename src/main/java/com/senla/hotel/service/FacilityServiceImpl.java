@@ -6,7 +6,6 @@ import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.mapper.FacilityMapper;
 import com.senla.hotel.model.Facility;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,6 +5,7 @@ import com.senla.hotel.api.service.RoomService;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.mapper.RoomMapper;
 import com.senla.hotel.model.Room;
+import com.senla.hotel.model.enums.RoomStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomDto create(RoomDto dto) {
         Room entity = mapper.toEntity(dto);
+        entity.setStatus(RoomStatus.FREE);
         return mapper.toDto(roomDao.save(entity));
     }
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -59,11 +60,9 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         User user = userDao.loadUserByUsername(userName);
         return new org.springframework.security.core.userdetails.User(
-                user.getName(),
+                user.getUsername(),
                 user.getPassword(),
-                user.getUserStatus().stream()
-                        .map(status -> new SimpleGrantedAuthority(status.getRole()))
-                        .collect(Collectors.toList())
+                Collections.singletonList(new SimpleGrantedAuthority(user.getStatus().getRole()))
         );
     }
 }

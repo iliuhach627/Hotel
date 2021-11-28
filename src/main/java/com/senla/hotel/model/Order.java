@@ -16,17 +16,19 @@ public class Order extends BaseEntity {
     @Column(name = "datafree")
     private LocalDate dateFree;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "guestid", referencedColumnName = "id")
     private Guest guest;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @JoinColumn(name = "roomid", referencedColumnName = "id")
     private Room room;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "orders_facilities",
-            joinColumns = @JoinColumn(name = "orderid"),
-            inverseJoinColumns = @JoinColumn(name = "facilityid")
+            joinColumns = @JoinColumn(name = "ordersid"),
+            inverseJoinColumns = @JoinColumn(name = "facilitiesid")
     )
     private List<Facility> facilities;
 }

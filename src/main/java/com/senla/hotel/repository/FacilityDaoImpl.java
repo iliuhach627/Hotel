@@ -1,32 +1,26 @@
 package com.senla.hotel.repository;
 
+import com.senla.hotel.api.repository.AbstractDao;
 import com.senla.hotel.api.repository.FacilityDao;
-import com.senla.hotel.mapper.row.FacilityRowMapper;
-import com.senla.hotel.mapper.row.GuestRowMapper;
 import com.senla.hotel.model.Facility;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
-
 @Component
-public class FacilityDaoImpl implements FacilityDao{
+public class FacilityDaoImpl extends AbstractDao<Facility> implements FacilityDao {
 
-    private final JdbcTemplate jdbcTemplate;
-    private static final String createSQL = "insert into facility (facilityid, title, facilityprice) values (?, ?, ?)";
-    private static final String findAllSQL = "select * from facility";
-    private static final String findByIdSQL = "select * from facility where facilityid = ?";
-    private static final String deleteSQL = "delete from facility where facilityid = ?";
-    private static final String updateSQL = "update facility set title = ?, facilityprice = ? where facilityid = ?";
-
-    public FacilityDaoImpl(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    /*private final JdbcTemplate jdbcTemplate;
+    private static final String createSQL = "insert into facilities (id, title, facilityprice) values (?, ?, ?)";
+    private static final String findAllSQL = "select * from facilities";
+    private static final String findByIdSQL = "select * from facilities where id = ?";
+    private static final String deleteSQL = "delete from facilities where id = ?";
+    private static final String updateSQL = "update facilities set title = ?, facilityprice = ? where id = ?";
+*/
+    public FacilityDaoImpl() {
+        super(Facility.class);
+        //this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
+    /*@Override
     public Facility save(Facility facility) {
         if (Objects.isNull(facility.getId())) {
             facility.setId(UUID.randomUUID());
@@ -52,5 +46,5 @@ public class FacilityDaoImpl implements FacilityDao{
     @Override
     public void delete(UUID id) {
         jdbcTemplate.update(deleteSQL, id);
-    }
+    }*/
 }

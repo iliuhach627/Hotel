@@ -1,39 +1,43 @@
 package com.senla.hotel.repository;
 
+import com.senla.hotel.api.repository.AbstractDao;
 import com.senla.hotel.api.repository.UserDao;
-import com.senla.hotel.mapper.row.UserRowMapper;
 import com.senla.hotel.model.User;
-import org.springframework.jdbc.core.JdbcTemplate;
+import com.senla.hotel.model.User_;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 @Component
-public class UserDaoImpl implements UserDao {
+public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 
-    private static final String createSQL = "insert into \"user\" (userid, username, userstatus, password) values (?, ?, ?, ?)";
-    private static final String findAllSQL = "select * from \"user\"";
-    private static final String findByIdSQL = "select * from \"user\" where userid = ?";
-    private static final String deleteSQL = "delete from \"user\" where userid = ?";
-    private static final String updateSQL = "update \"user\" set username = ?, userstatus = ?, password = ? where userid = ?";
-    private static final String loadUserByUserNameSQL = "select * from \"user\" where username = ?";
-    private final JdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
+    /*private static final String createSQL = "insert into \"users\" (id, username, userstatus, password) values (?, ?, ?, ?)";
+    private static final String findAllSQL = "select * from \"users\"";
+    private static final String findByIdSQL = "select * from \"users\" where id = ?";
+    private static final String deleteSQL = "delete from \"users\" where id = ?";
+    private static final String updateSQL = "update \"users\" set username = ?, userstatus = ?, password = ? where id = ?";
+    private static final String loadUserByUserNameSQL = "select * from \"users\" where username = ?";
+    private final JdbcTemplate jdbcTemplate;*/
 
 
-    public UserDaoImpl(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public UserDaoImpl() {
+        super(User.class);
+        //this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
+ /*   @Override
     public User save(User user) {
         if (Objects.isNull(user.getId())) {
             user.setId(UUID.randomUUID());
-            jdbcTemplate.update(createSQL, user.getId(), user.getName(), user.getUserStatus().toString(), user.getPassword());
+            jdbcTemplate.update(createSQL, user.getId(), user.getUsername(), user.getStatus().toString(), user.getPassword());
         } else {
-            jdbcTemplate.update(updateSQL, user.getName(), user.getUserStatus().toString(), user.getPassword(), user.getId());
+            jdbcTemplate.update(updateSQL, user.getUsername(), user.getStatus().toString(), user.getPassword(), user.getId());
         }
         return user;
     }
@@ -51,9 +55,17 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(UUID id) {
         jdbcTemplate.update(deleteSQL, id);
+    }*/
+
+    public User loadUserByUsername(String username) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> userRoot = query.from(User.class);
+
+        query.select(userRoot);
+        query.where(builder.equal(userRoot.get(User_.username), username));
+        return entityManager.createQuery(query).getSingleResult();
     }
 
-    public User loadUserByUsername(String userName) {
-        return jdbcTemplate.queryForObject(loadUserByUserNameSQL, new UserRowMapper(), userName);
-    }
+
 }

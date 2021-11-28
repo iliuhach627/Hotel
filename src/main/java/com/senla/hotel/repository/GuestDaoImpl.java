@@ -1,37 +1,35 @@
 package com.senla.hotel.repository;
 
+import com.senla.hotel.api.repository.AbstractDao;
 import com.senla.hotel.api.repository.GuestDao;
-import com.senla.hotel.mapper.row.GuestRowMapper;
 import com.senla.hotel.model.Guest;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
-
 @Component
-public class GuestDaoImpl implements GuestDao {
+public class GuestDaoImpl extends AbstractDao<Guest> implements GuestDao {
 
-    private final JdbcTemplate jdbcTemplate;
-    private static final String createSQL = "insert into guest (guestid, name, surname, tel, age, gender) values (?, ?, ?, ?, ?, ?)";
-    private static final String findAllSQL = "select * from guest";
-    private static final String findByIdSQL = "select * from guest where guestid = ?";
-    private static final String deleteSQL = "delete from guest where guestid = ?";
-    private static final String updateSQL = "update guest set name = ?, surname = ?, tel = ?, age = ?, gender = ? where guestid = ?";
-
-    public GuestDaoImpl(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    /* private final JdbcTemplate jdbcTemplate;
+     private static final String createSQL = "insert into guests (id, name, surname, tel, age, gender) values (?, ?, ?, ?, ?, ?)";
+     private static final String findAllSQL = "select * from guests";
+     private static final String findByIdSQL = "select * from guests where id = ?";
+     private static final String deleteSQL = "delete from guests where id = ?";
+     private static final String updateSQL = "update guests set name = ?, surname = ?, tel = ?, age = ?, gender = ? where id = ?";
+ */
+    public GuestDaoImpl() {
+        super(Guest.class);
+        // this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
+/*    @Override
     public Guest save(Guest guest) {
+
         if (Objects.isNull(guest.getId())) {
             guest.setId(UUID.randomUUID());
-            jdbcTemplate.update(createSQL, guest.getId(), guest.getName(), guest.getSurName(), guest.getTel(), guest.getAge(), guest.getGender());
+            entityManager.persist(guest);
+            return guest;
+            jdbcTemplate.update(createSQL, guest.getId(), guest.getName(), guest.getSurname(), guest.getTel(), guest.getAge(), guest.getGender());
         }else {
-            jdbcTemplate.update(updateSQL, guest.getName(), guest.getSurName(), guest.getTel(), guest.getAge(), guest.getGender(), guest.getId());
+            jdbcTemplate.update(updateSQL, guest.getName(), guest.getSurname(), guest.getTel(), guest.getAge(), guest.getGender(), guest.getId());
         }
         return guest;
     }
@@ -49,4 +47,5 @@ public class GuestDaoImpl implements GuestDao {
 
     @Override
     public void delete(UUID id) { jdbcTemplate.update(deleteSQL, id); }
+    */
 }

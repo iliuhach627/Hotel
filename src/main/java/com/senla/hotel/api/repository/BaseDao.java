@@ -10,4 +10,5 @@ public interface BaseDao<ENTITY extends BaseEntity> {
     Collection <ENTITY> findAll();
     ENTITY findById(UUID id);
     void delete(UUID id);
+    void update(ENTITY entity);
 }

@@ -1,7 +1,5 @@
 package com.senla.hotel.service;
 
-import com.senla.hotel.api.repository.FacilityDao;
-import com.senla.hotel.api.repository.GuestDao;
 import com.senla.hotel.api.repository.OrderDao;
 import com.senla.hotel.api.repository.RoomDao;
 import com.senla.hotel.api.service.OrderService;
@@ -22,20 +20,13 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl implements OrderService {
     private final RoomDao roomDao;
     private final OrderDao orderDao;
-    private final FacilityDao facilityDao;
-    private final GuestDao guestDao;
     private final OrderMapper mapper;
 
     @Transactional
     @Override
     public OrderDto create(OrderDto dto) {
         Order orderEntity = mapper.toEntity(dto);
-        Room roomEntity = roomDao.findById(orderEntity.getRoom().getId());
-        roomDao.autoChangeStatus(roomEntity);
-
-        orderEntity.setGuest(guestDao.findById(orderEntity.getGuest().getId()));
-        orderEntity.setFacility(facilityDao.findById(orderEntity.getFacility().getId()));
-        orderEntity.setRoom(roomEntity);
+        roomDao.autoChangeStatus(orderEntity.getRoom());
 
         return mapper.toDto(orderDao.save(orderEntity));
     }

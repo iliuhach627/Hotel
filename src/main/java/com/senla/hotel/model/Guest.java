@@ -2,7 +2,9 @@ package com.senla.hotel.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
 @Data
@@ -10,9 +12,11 @@ import java.util.List;
 @Table(name = "guests")
 public class Guest extends BaseEntity {
     private String name;
-    private String surName;
+    private String surname;
     private String tel;
     private int age;
     private String gender;
 
+    @OneToMany(mappedBy = "guest")
+    private List<Order> orders;
 }
