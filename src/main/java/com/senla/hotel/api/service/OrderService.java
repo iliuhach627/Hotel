@@ -1,6 +1,7 @@
 package com.senla.hotel.api.service;
 
 import com.senla.hotel.dto.OrderDto;
+import com.senla.hotel.model.enums.SortedKey;
 
 import java.util.Collection;
 import java.util.UUID;
@@ -16,4 +17,5 @@ public interface OrderService {
 
     void update(OrderDto entity);
 
+    Collection<OrderDto> sortedByKey(SortedKey key);
 }

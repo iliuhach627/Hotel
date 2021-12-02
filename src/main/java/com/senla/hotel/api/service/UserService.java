@@ -1,6 +1,7 @@
 package com.senla.hotel.api.service;
 
 import com.senla.hotel.dto.UserDto;
+import com.senla.hotel.model.enums.SortedKey;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.Collection;
@@ -15,5 +16,7 @@ public interface UserService extends UserDetailsService {
 
     void delete(UUID id);
 
-    UserDto update(UserDto entity);
+    void update(UserDto entity);
+
+    Collection<UserDto> sortedByKey(SortedKey key);
 }
