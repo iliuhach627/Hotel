@@ -2,9 +2,11 @@ package com.senla.hotel.api.service;
 
 import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.dto.GuestDto;
+import com.senla.hotel.model.Guest;
 import com.senla.hotel.model.enums.SortedKey;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.UUID;
 
 public interface GuestService {
@@ -19,4 +21,6 @@ public interface GuestService {
     void update(GuestDto entity);
 
     Collection<GuestDto> sortedByKey(SortedKey key);
+
+    Comparator<Guest> getComparator(SortedKey key);
 }

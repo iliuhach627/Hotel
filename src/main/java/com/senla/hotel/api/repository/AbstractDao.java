@@ -14,7 +14,7 @@ public abstract class AbstractDao<ENTITY extends BaseEntity> implements BaseDao<
     private final Class<ENTITY> persistentClass;
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     @Override
     public ENTITY save(ENTITY entity) {
@@ -36,7 +36,9 @@ public abstract class AbstractDao<ENTITY extends BaseEntity> implements BaseDao<
 
     @Override
     public void delete(UUID id) {
-        entityManager.remove(findById(id));
+       entityManager.remove(findById(id));
+        entityManager.createQuery("Delete from " + persistentClass.getSimpleName() + " entity Where entity.id = :id").setParameter("id", id)
+        ;
     }
 
     @Override

@@ -1,15 +1,17 @@
 package com.senla.hotel.controller;
 
 import com.senla.hotel.api.service.OrderService;
-import com.senla.hotel.dto.FacilityDto;
+import com.senla.hotel.dto.GuestDto;
 import com.senla.hotel.dto.OrderDto;
 import com.senla.hotel.model.enums.SortedKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -55,5 +57,14 @@ public class OrderController {
     public ResponseEntity<Collection<OrderDto>> getSortedByKey(@PathVariable SortedKey key) {
         log.info("Я - МЕТОД ВЫВОДА ВСЕГО ОТСОРТИРОВАННОГО В КОНТРОЛЛЕРЕ ЗАКАЗА!!!");
         return ResponseEntity.ok(orderService.sortedByKey(key));
+    }
+
+    @GetMapping("/guests")
+    public ResponseEntity<Collection<GuestDto>> findAllGuestsByRoomAndDate(@RequestParam String number,
+                                                                           @RequestParam
+                                                                           @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                                                   LocalDate date) {
+        log.info("Я - МЕТОД ВЫВОДА ВСЕХ ГОСТЕЙ ИЗ КОМНАТЫ ПО ДАТЕ В КОНТРОЛЛЕРЕ ЗАКАЗА!!!");
+        return ResponseEntity.ok(orderService.findAllGuestsByRoomAndDate(number, date));
     }
 }

@@ -12,6 +12,6 @@ public enum SortedKey {
     STATUS,
     USERNAME,
     PASSWORD,
-    DATESET,
-    DATEFREE
+    DATE_SET,
+    DATE_FREE
 }

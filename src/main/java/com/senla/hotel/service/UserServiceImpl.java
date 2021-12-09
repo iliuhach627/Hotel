@@ -2,10 +2,8 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.api.repository.UserDao;
 import com.senla.hotel.api.service.UserService;
-import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.dto.UserDto;
 import com.senla.hotel.mapper.UserMapper;
-import com.senla.hotel.model.Facility;
 import com.senla.hotel.model.User;
 import com.senla.hotel.model.enums.SortedKey;
 import lombok.RequiredArgsConstructor;
@@ -81,27 +79,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<UserDto> sortedByKey(SortedKey key) {
         log.info("Я - МЕТОД ВЫВОДА ВСЕГО ОТСОРТИРОВАННОГО В СЕРВИСЕ ЮЗЕРА!!!");
+        return userDao.findAll()
+                .stream()
+                .sorted(getComparator(key))
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public Comparator<User> getComparator(SortedKey key) {
+        Comparator<User> comparator = null;
         switch (key) {
             case USERNAME:
-                return userDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(User::getUsername))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(User::getUsername);
+                break;
             case STATUS:
-                return userDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(User::getStatus))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(User::getStatus);
+                break;
             case PASSWORD:
-                return userDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(User::getPassword))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                return null;
+                comparator = Comparator.comparing(User::getPassword);
+                break;
         }
+        return comparator;
     }
 }

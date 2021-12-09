@@ -2,11 +2,10 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.api.repository.GuestDao;
 import com.senla.hotel.api.service.GuestService;
-import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.dto.GuestDto;
-import com.senla.hotel.model.Facility;
-import com.senla.hotel.model.Guest;
 import com.senla.hotel.mapper.GuestMapper;
+import com.senla.hotel.model.Guest;
+import com.senla.hotel.model.Room;
 import com.senla.hotel.model.enums.SortedKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,39 +66,33 @@ public class GuestServiceImpl implements GuestService {
     @Override
     public Collection<GuestDto> sortedByKey(SortedKey key) {
         log.info("Я - МЕТОД ВЫВОДА ВСЕГО ОТСОРТИРОВАННОГО В СЕРВИСЕ ГОСТЯ!!!");
+        return guestDao.findAll()
+                .stream()
+                .sorted(getComparator(key))
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Comparator<Guest> getComparator(SortedKey key) {
+        Comparator<Guest> comparator = null;
         switch (key) {
             case NAME:
-                return guestDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Guest::getName))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(Guest::getName);
+                break;
             case SURNAME:
-                return guestDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Guest::getSurname))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(Guest::getSurname);
+                break;
             case TEL:
-                return guestDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Guest::getTel))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(Guest::getTel);
+                break;
             case AGE:
-                return guestDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Guest::getAge))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(Guest::getAge);
+                break;
             case GENDER:
-                return guestDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Guest::getGender))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                return null;
+                comparator = Comparator.comparing(Guest::getGender);
+                break;
         }
+        return comparator;
     }
 }

@@ -2,10 +2,8 @@ package com.senla.hotel.service;
 
 import com.senla.hotel.api.repository.RoomDao;
 import com.senla.hotel.api.service.RoomService;
-import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.dto.RoomDto;
 import com.senla.hotel.mapper.RoomMapper;
-import com.senla.hotel.model.Facility;
 import com.senla.hotel.model.Room;
 import com.senla.hotel.model.enums.RoomStatus;
 import com.senla.hotel.model.enums.SortedKey;
@@ -77,27 +75,27 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Collection<RoomDto> sortedByKey(SortedKey key) {
         log.info("Я - МЕТОД ВЫВОДА ВСЕГО ОТСОРТИРОВАННОГО В СЕРВИСЕ КОМНАТЫ!!!");
-        switch (key) {
-            case NUMBER:
-                return roomDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Room::getNumber))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
-            case STATUS:
-                return roomDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Room::getStatus))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+        return roomDao.findAll()
+                .stream()
+                .sorted(getComparator(key))
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Comparator<Room> getComparator(SortedKey key){
+        Comparator<Room> comparator = null;
+        switch (key){
             case PRICE:
-                return roomDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Room::getPrice))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                return null;
+                comparator = Comparator.comparing(Room::getPrice);
+                break;
+            case NUMBER:
+                comparator = Comparator.comparing(Room::getNumber);
+                break;
+            case STATUS:
+                comparator = Comparator.comparing(Room::getStatus);
+                break;
         }
+        return comparator;
     }
 }

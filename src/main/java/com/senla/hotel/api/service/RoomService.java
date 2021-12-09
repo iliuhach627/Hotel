@@ -1,10 +1,11 @@
 package com.senla.hotel.api.service;
 
-import com.senla.hotel.dto.FacilityDto;
 import com.senla.hotel.dto.RoomDto;
+import com.senla.hotel.model.Room;
 import com.senla.hotel.model.enums.SortedKey;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.UUID;
 
 public interface RoomService {
@@ -21,4 +22,6 @@ public interface RoomService {
     void changeStatus(UUID id);
 
     Collection<RoomDto> sortedByKey(SortedKey key);
+
+    Comparator<Room> getComparator(SortedKey key);
 }

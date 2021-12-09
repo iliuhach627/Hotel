@@ -51,7 +51,7 @@ public class FacilityServiceImpl implements FacilityService {
     @Transactional
     @Override
     public void delete(UUID id) {
-        log.info("Я - МЕТОД УДАЛЕНИЯ ВСЕГО В СЕРВИСЕ УСЛУГИ!!!");
+        log.info("Я - МЕТОД УДАЛЕНИЯ ОДНОГО В СЕРВИСЕ УСЛУГИ!!!");
         facilityDao.delete(id);
     }
 
@@ -66,21 +66,24 @@ public class FacilityServiceImpl implements FacilityService {
     @Override
     public Collection<FacilityDto> sortedByKey(SortedKey key) {
         log.info("Я - МЕТОД ВЫВОДА ВСЕГО ОТСОРТИРОВАННОГО В СЕРВИСЕ УСЛУГИ!!!");
+        return facilityDao.findAll()
+                .stream()
+                .sorted(getComparator(key))
+                .map(mapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Comparator<Facility> getComparator(SortedKey key) {
+        Comparator<Facility> comparator = null;
         switch (key) {
             case TITLE:
-                return facilityDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Facility::getTitle))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
+                comparator = Comparator.comparing(Facility::getTitle);
+                break;
             case PRICE:
-                return facilityDao.findAll()
-                        .stream()
-                        .sorted(Comparator.comparing(Facility::getPrice))
-                        .map(mapper::toDto)
-                        .collect(Collectors.toList());
-            default:
-                return null;
+                comparator = Comparator.comparing(Facility::getPrice);
+                break;
         }
+        return comparator;
     }
 }
