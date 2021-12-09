@@ -1,0 +1,19 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  liquibase:
+    change-log: classpath*:database/master.xml
+    enabled: true
+  jpa:
+    show-sql: true
+    open-in-view: false
+
+hibernate:
+  dialect: org.hibernate.dialect.PostgreSQLDialect
+  ejb:
+    naming_strategy: org.hibernate.cfg.ImplicitNamingStrategy
+  show_sql: true
+  format_sql: true
+  hbm2ddl:
+    auto: validate
+
